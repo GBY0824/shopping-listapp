@@ -56,672 +56,140 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    main {
-      width: 100%;
-      max-width: 500px;
-    }
+    main { width: 100%; max-width: 500px; }
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-    }
-
-    .header h1 {
-      font-size: 34px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .header h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.5px; }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
 
     .theme-toggle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      background: var(--surface);
-      backdrop-filter: var(--backdrop);
-      -webkit-backdrop-filter: var(--backdrop);
-      color: var(--text);
-      font-size: 18px;
-      cursor: pointer;
-      transition: all var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow);
+      width: 40px; height: 40px; border-radius: 50%; border: none;
+      background: var(--surface); backdrop-filter: var(--backdrop); -webkit-backdrop-filter: var(--backdrop);
+      color: var(--text); font-size: 18px; cursor: pointer; transition: all var(--transition);
+      display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow);
     }
-
-    .theme-toggle:hover {
-      transform: scale(1.1);
-    }
+    .theme-toggle:hover { transform: scale(1.1); }
 
     .user-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: var(--surface);
-      backdrop-filter: var(--backdrop);
-      -webkit-backdrop-filter: var(--backdrop);
-      border-radius: var(--radius-sm);
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-      font-size: 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; background: var(--surface); backdrop-filter: var(--backdrop);
+      -webkit-backdrop-filter: var(--backdrop); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow); margin-bottom: 20px; font-size: 14px;
     }
+    .user-bar .user-email { color: var(--text-secondary); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 260px; }
+    .user-bar .logout-btn { border: none; background: transparent; color: var(--danger); font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; padding: 4px 10px; border-radius: 6px; transition: all var(--transition); flex-shrink: 0; }
+    .user-bar .logout-btn:hover { background: rgba(255,59,48,0.1); }
 
-    .user-bar .user-email {
-      color: var(--text-secondary);
-      font-weight: 500;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 260px;
-    }
+    .auth-container { max-width: 400px; margin: 0 auto; }
+    .auth-card { background: var(--surface); backdrop-filter: var(--backdrop); -webkit-backdrop-filter: var(--backdrop); border-radius: var(--radius); padding: 32px 28px; box-shadow: var(--shadow-lg); }
+    .auth-card h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; text-align: center; }
+    .auth-field { margin-bottom: 16px; }
+    .auth-field label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+    .auth-field input { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-solid); color: var(--text); font-size: 16px; font-family: inherit; outline: none; transition: all var(--transition); }
+    .auth-field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,113,227,0.15); }
+    .auth-field input.invalid { border-color: var(--danger); }
 
-    .user-bar .logout-btn {
-      border: none;
-      background: transparent;
-      color: var(--danger);
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      padding: 4px 10px;
-      border-radius: 6px;
-      transition: all var(--transition);
-      flex-shrink: 0;
-    }
+    .pw-strength { height: 4px; border-radius: 2px; margin-top: 8px; background: var(--border); overflow: hidden; }
+    .pw-strength-bar { height: 100%; border-radius: 2px; width: 0%; transition: width 0.3s, background 0.3s; }
+    .pw-strength-text { font-size: 12px; margin-top: 4px; font-weight: 500; }
 
-    .user-bar .logout-btn:hover {
-      background: rgba(255,59,48,0.1);
-    }
+    .auth-btn { width: 100%; padding: 14px; border: none; border-radius: var(--radius-sm); background: var(--accent); color: #fff; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all var(--transition); margin-top: 8px; }
+    .auth-btn:hover { background: var(--accent-hover); transform: scale(1.02); }
+    .auth-btn:active { transform: scale(0.98); }
+    .auth-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    .auth-container {
-      max-width: 400px;
-      margin: 0 auto;
-    }
+    .auth-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: var(--text-secondary); font-size: 13px; }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    .auth-card {
-      background: var(--surface);
-      backdrop-filter: var(--backdrop);
-      -webkit-backdrop-filter: var(--backdrop);
-      border-radius: var(--radius);
-      padding: 32px 28px;
-      box-shadow: var(--shadow-lg);
-    }
+    .google-btn { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-solid); color: var(--text); font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .google-btn:hover { border-color: var(--text-secondary); transform: scale(1.02); }
+    .google-btn svg { width: 20px; height: 20px; }
 
-    .auth-card h2 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      text-align: center;
-    }
+    .auth-toggle { text-align: center; margin-top: 20px; font-size: 14px; color: var(--text-secondary); }
+    .auth-toggle button { border: none; background: transparent; color: var(--accent); font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; padding: 0; }
+    .auth-toggle button:hover { text-decoration: underline; }
 
-    .auth-field {
-      margin-bottom: 16px;
-    }
+    .auth-error { background: rgba(255,59,48,0.1); color: var(--danger); padding: 10px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; margin-bottom: 16px; display: none; }
+    .auth-success { background: rgba(52,199,89,0.1); color: var(--success); padding: 10px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; margin-bottom: 16px; display: none; }
 
-    .auth-field label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 6px;
-    }
+    .loading-overlay { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 100; transition: opacity 0.3s; }
+    .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .auth-field input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface-solid);
-      color: var(--text);
-      font-size: 16px;
-      font-family: inherit;
-      outline: none;
-      transition: all var(--transition);
-    }
+    #addForm { display: flex; gap: 10px; margin-bottom: 20px; }
+    #addForm input[type="text"] { flex: 1; padding: 14px 18px; border: none; border-radius: var(--radius); background: var(--surface); backdrop-filter: var(--backdrop); -webkit-backdrop-filter: var(--backdrop); color: var(--text); font-size: 17px; font-family: inherit; box-shadow: var(--shadow); outline: none; transition: all var(--transition); }
+    #addForm input[type="text"]::placeholder { color: var(--text-secondary); }
+    #addForm input[type="text"]:focus { box-shadow: var(--shadow-lg), 0 0 0 3px rgba(0,113,227,0.3); }
+    #addForm button[type="submit"] { padding: 14px 22px; border: none; border-radius: var(--radius); background: var(--accent); color: #fff; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all var(--transition); white-space: nowrap; }
+    #addForm button[type="submit"]:hover { background: var(--accent-hover); transform: scale(1.03); }
+    #addForm button[type="submit"]:active { transform: scale(0.97); }
 
-    .auth-field input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
-    }
+    .stats { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 0 2px; }
+    .stats .info { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+    .stats .info .badge { display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; margin-left: 4px; vertical-align: middle; }
 
-    .auth-field input.invalid {
-      border-color: var(--danger);
-    }
+    .filters { display: flex; gap: 4px; background: var(--surface); backdrop-filter: var(--backdrop); -webkit-backdrop-filter: var(--backdrop); border-radius: var(--radius-sm); padding: 3px; box-shadow: var(--shadow); margin-bottom: 16px; }
+    .filters button { flex: 1; padding: 8px 0; border: none; border-radius: 8px; background: transparent; color: var(--text-secondary); font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all var(--transition); }
+    .filters button[aria-pressed="true"] { background: var(--surface-solid); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .filters button:hover:not([aria-pressed="true"]) { color: var(--text); }
 
-    .pw-strength {
-      height: 4px;
-      border-radius: 2px;
-      margin-top: 8px;
-      background: var(--border);
-      overflow: hidden;
-    }
-
-    .pw-strength-bar {
-      height: 100%;
-      border-radius: 2px;
-      width: 0%;
-      transition: width 0.3s, background 0.3s;
-    }
-
-    .pw-strength-text {
-      font-size: 12px;
-      margin-top: 4px;
-      font-weight: 500;
-    }
-
-    .auth-btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: var(--radius-sm);
-      background: var(--accent);
-      color: #fff;
-      font-size: 16px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all var(--transition);
-      margin-top: 8px;
-    }
-
-    .auth-btn:hover {
-      background: var(--accent-hover);
-      transform: scale(1.02);
-    }
-
-    .auth-btn:active {
-      transform: scale(0.98);
-    }
-
-    .auth-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .auth-divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 20px 0;
-      color: var(--text-secondary);
-      font-size: 13px;
-    }
-
-    .auth-divider::before,
-    .auth-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .google-btn {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--surface-solid);
-      color: var(--text);
-      font-size: 15px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .google-btn:hover {
-      border-color: var(--text-secondary);
-      transform: scale(1.02);
-    }
-
-    .google-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .auth-toggle {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
-    .auth-toggle button {
-      border: none;
-      background: transparent;
-      color: var(--accent);
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .auth-toggle button:hover {
-      text-decoration: underline;
-    }
-
-    .auth-error {
-      background: rgba(255,59,48,0.1);
-      color: var(--danger);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .auth-success {
-      background: rgba(52,199,89,0.1);
-      color: var(--success);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .loading-overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      transition: opacity 0.3s;
-    }
-
-    .loading-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    #addForm {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    #addForm input[type="text"] {
-      flex: 1;
-      padding: 14px 18px;
-      border: none;
-      border-radius: var(--radius);
-      background: var(--surface);
-      backdrop-filter: var(--backdrop);
-      -webkit-backdrop-filter: var(--backdrop);
-      color: var(--text);
-      font-size: 17px;
-      font-family: inherit;
-      box-shadow: var(--shadow);
-      outline: none;
-      transition: all var(--transition);
-    }
-
-    #addForm input[type="text"]::placeholder {
-      color: var(--text-secondary);
-    }
-
-    #addForm input[type="text"]:focus {
-      box-shadow: var(--shadow-lg), 0 0 0 3px rgba(0,113,227,0.3);
-    }
-
-    #addForm button[type="submit"] {
-      padding: 14px 22px;
-      border: none;
-      border-radius: var(--radius);
-      background: var(--accent);
-      color: #fff;
-      font-size: 16px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all var(--transition);
-      white-space: nowrap;
-    }
-
-    #addForm button[type="submit"]:hover {
-      background: var(--accent-hover);
-      transform: scale(1.03);
-    }
-
-    #addForm button[type="submit"]:active {
-      transform: scale(0.97);
-    }
-
-    .stats {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 0 2px;
-    }
-
-    .stats .info {
-      font-size: 13px;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .stats .info .badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      min-width: 20px;
-      height: 20px;
-      padding: 0 6px;
-      border-radius: 10px;
-      margin-left: 4px;
-      vertical-align: middle;
-    }
-
-    .filters {
-      display: flex;
-      gap: 4px;
-      background: var(--surface);
-      backdrop-filter: var(--backdrop);
-      -webkit-backdrop-filter: var(--backdrop);
-      border-radius: var(--radius-sm);
-      padding: 3px;
-      box-shadow: var(--shadow);
-      margin-bottom: 16px;
-    }
-
-    .filters button {
-      flex: 1;
-      padding: 8px 0;
-      border: none;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 13px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all var(--transition);
-    }
-
-    .filters button[aria-pressed="true"] {
-      background: var(--surface-solid);
-      color: var(--text);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    }
-
-    .filters button:hover:not([aria-pressed="true"]) {
-      color: var(--text);
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    li {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--surface);
-      backdrop-filter: var(--backdrop);
-      -webkit-backdrop-filter: var(--backdrop);
-      padding: 16px 18px;
-      border-radius: var(--radius);
-      margin-bottom: 8px;
-      box-shadow: var(--shadow);
-      transition: all var(--transition);
-      animation: slideIn 0.35s ease-out;
-    }
-
+    ul { list-style: none; }
+    li { display: flex; align-items: center; gap: 14px; background: var(--surface); backdrop-filter: var(--backdrop); -webkit-backdrop-filter: var(--backdrop); padding: 16px 18px; border-radius: var(--radius); margin-bottom: 8px; box-shadow: var(--shadow); transition: all var(--transition); animation: slideIn 0.35s ease-out; }
     li:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+    li.removing { animation: slideOut 0.3s ease-in forwards; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-12px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes slideOut { to { opacity: 0; transform: translateX(60px) scale(0.9); } }
 
-    li.removing {
-      animation: slideOut 0.3s ease-in forwards;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-12px) scale(0.96); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes slideOut {
-      to { opacity: 0; transform: translateX(60px) scale(0.9); }
-    }
-
-    li .checkbox {
-      width: 24px;
-      height: 24px;
-      border: 2px solid var(--text-secondary);
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all var(--transition);
-    }
-
+    li .checkbox { width: 24px; height: 24px; border: 2px solid var(--text-secondary); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all var(--transition); }
     li .checkbox:hover { border-color: var(--accent); }
-    li .checkbox:focus-visible {
-      outline: 3px solid rgba(0,113,227,0.4);
-      outline-offset: 2px;
-    }
+    li .checkbox:focus-visible { outline: 3px solid rgba(0,113,227,0.4); outline-offset: 2px; }
+    li.checked .checkbox { background: var(--success); border-color: var(--success); animation: popIn 0.3s ease; }
+    @keyframes popIn { 0% { transform: scale(1); } 50% { transform: scale(1.25); } 100% { transform: scale(1); } }
+    li.checked .checkbox::after { content: ''; width: 6px; height: 10px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
 
-    li.checked .checkbox {
-      background: var(--success);
-      border-color: var(--success);
-      animation: popIn 0.3s ease;
-    }
+    li .item-text { flex: 1; font-size: 17px; font-weight: 400; color: var(--text); word-break: break-word; transition: all var(--transition); line-height: 1.4; }
+    li.checked .item-text { text-decoration: line-through; color: var(--text-secondary); }
+    li .edit-input { flex: 1; font-size: 17px; font-family: inherit; padding: 4px 8px; border: none; border-bottom: 2px solid var(--accent); background: transparent; color: var(--text); outline: none; }
 
-    @keyframes popIn {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.25); }
-      100% { transform: scale(1); }
-    }
-
-    li.checked .checkbox::after {
-      content: '';
-      width: 6px;
-      height: 10px;
-      border: 2px solid #fff;
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg) translateY(-1px);
-    }
-
-    li .item-text {
-      flex: 1;
-      font-size: 17px;
-      font-weight: 400;
-      color: var(--text);
-      word-break: break-word;
-      transition: all var(--transition);
-      line-height: 1.4;
-    }
-
-    li.checked .item-text {
-      text-decoration: line-through;
-      color: var(--text-secondary);
-    }
-
-    li .edit-input {
-      flex: 1;
-      font-size: 17px;
-      font-family: inherit;
-      padding: 4px 8px;
-      border: none;
-      border-bottom: 2px solid var(--accent);
-      background: transparent;
-      color: var(--text);
-      outline: none;
-    }
-
-    li .actions {
-      display: flex;
-      gap: 4px;
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
+    li .actions { display: flex; gap: 4px; opacity: 0; transition: opacity var(--transition); }
     li:hover .actions { opacity: 1; }
+    li .act-btn { width: 32px; height: 32px; border: none; border-radius: 8px; background: transparent; color: var(--text-secondary); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+    li .act-btn:hover { background: var(--border); }
+    li .act-btn.delete:hover { background: rgba(255,59,48,0.12); color: var(--danger); }
+    li .act-btn:focus-visible { outline: 3px solid rgba(0,113,227,0.4); outline-offset: 2px; }
 
-    li .act-btn {
-      width: 32px;
-      height: 32px;
-      border: none;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 15px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all var(--transition);
-    }
+    .bottom-bar { display: flex; justify-content: center; margin-top: 12px; }
+    .clear-btn { padding: 10px 20px; border: none; border-radius: var(--radius-sm); background: transparent; color: var(--danger); font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all var(--transition); }
+    .clear-btn:hover { background: rgba(255,59,48,0.1); }
+    .clear-btn:disabled { opacity: 0; pointer-events: none; }
 
-    li .act-btn:hover {
-      background: var(--border);
-    }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+    .empty-state .icon { font-size: 56px; margin-bottom: 16px; display: block; }
+    .empty-state p { font-size: 17px; font-weight: 500; }
+    .empty-state .sub { font-size: 14px; margin-top: 6px; font-weight: 400; }
 
-    li .act-btn.delete:hover {
-      background: rgba(255,59,48,0.12);
-      color: var(--danger);
-    }
-
-    li .act-btn:focus-visible {
-      outline: 3px solid rgba(0,113,227,0.4);
-      outline-offset: 2px;
-    }
-
-    .bottom-bar {
-      display: flex;
-      justify-content: center;
-      margin-top: 12px;
-    }
-
-    .clear-btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: var(--radius-sm);
-      background: transparent;
-      color: var(--danger);
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all var(--transition);
-    }
-
-    .clear-btn:hover {
-      background: rgba(255,59,48,0.1);
-    }
-
-    .clear-btn:disabled {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-    }
-
-    .empty-state .icon {
-      font-size: 56px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .empty-state p {
-      font-size: 17px;
-      font-weight: 500;
-    }
-
-    .empty-state .sub {
-      font-size: 14px;
-      margin-top: 6px;
-      font-weight: 400;
-    }
-
-    .progress-wrap {
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      transition: opacity var(--transition);
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--success));
-      border-radius: 2px;
-      transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
+    .progress-wrap { height: 4px; background: var(--border); border-radius: 2px; margin-bottom: 20px; overflow: hidden; transition: opacity var(--transition); }
+    .progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--success)); border-radius: 2px; transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--text-secondary); border-radius: 3px; }
-
-    @media (hover: none) {
-      li .actions { opacity: 1; }
-    }
-
-    @media (max-width: 480px) {
-      .header h1 { font-size: 28px; }
-      body { padding: 24px 12px 60px; }
-    }
+    @media (hover: none) { li .actions { opacity: 1; } }
+    @media (max-width: 480px) { .header h1 { font-size: 28px; } body { padding: 24px 12px 60px; } }
 
     .screen { display: none; }
     .screen.active { display: block; }
   </style>
 </head>
 <body>
-  <div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-  </div>
+  <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
 
   <main>
     <div class="header">
       <h1>쇼핑 리스트</h1>
       <div class="header-actions">
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">
-          <span id="themeIcon">&#9790;</span>
-        </button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환"><span id="themeIcon">&#9790;</span></button>
       </div>
     </div>
 
@@ -729,10 +197,8 @@
       <div class="auth-container">
         <div class="auth-card">
           <h2 id="authTitle">로그인</h2>
-
           <div class="auth-error" id="authError"></div>
           <div class="auth-success" id="authSuccess"></div>
-
           <form id="authForm" autocomplete="off" novalidate>
             <div class="auth-field">
               <label for="authEmail">이메일</label>
@@ -741,16 +207,12 @@
             <div class="auth-field">
               <label for="authPassword">비밀번호</label>
               <input type="password" id="authPassword" placeholder="8자 이상, 영문+숫자" required minlength="8" />
-              <div class="pw-strength" id="pwStrengthWrap" style="display:none;">
-                <div class="pw-strength-bar" id="pwStrengthBar"></div>
-              </div>
+              <div class="pw-strength" id="pwStrengthWrap" style="display:none;"><div class="pw-strength-bar" id="pwStrengthBar"></div></div>
               <div class="pw-strength-text" id="pwStrengthText" style="display:none;"></div>
             </div>
             <button type="submit" class="auth-btn" id="authSubmitBtn">로그인</button>
           </form>
-
           <div class="auth-divider">또는</div>
-
           <button type="button" class="google-btn" id="googleBtn">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
@@ -760,7 +222,6 @@
             </svg>
             Google로 계속하기
           </button>
-
           <div class="auth-toggle" id="authToggle">
             계정이 없으신가요? <button type="button" id="authSwitchBtn">회원가입</button>
           </div>
@@ -773,30 +234,23 @@
         <span class="user-email" id="userEmail"></span>
         <button type="button" class="logout-btn" id="logoutBtn">로그아웃</button>
       </div>
-
       <form id="addForm" autocomplete="off">
         <input type="text" id="itemInput" placeholder="새 아이템 추가..." aria-label="쇼핑 아이템 입력" maxlength="200" />
         <button type="submit">추가</button>
       </form>
-
       <div class="stats" id="stats" aria-live="polite"></div>
-      <div class="progress-wrap" id="progressWrap">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-
+      <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
       <div class="filters" role="group" aria-label="필터">
         <button type="button" data-filter="all" aria-pressed="true">전체</button>
         <button type="button" data-filter="active" aria-pressed="false">미완료</button>
         <button type="button" data-filter="completed" aria-pressed="false">완료</button>
       </div>
-
       <ul id="list" role="list"></ul>
       <div class="empty-state" id="emptyState" hidden>
         <span class="icon">&#128722;</span>
         <p>리스트가 비어 있습니다</p>
         <p class="sub">위 입력란에 아이템을 추가해 보세요</p>
       </div>
-
       <div class="bottom-bar">
         <button type="button" class="clear-btn" id="clearBtn" disabled>완료 항목 모두 삭제</button>
       </div>
@@ -810,7 +264,6 @@
 
     const THEME_KEY = 'shopping-list-theme';
     const MAX_ITEM_LENGTH = 200;
-
     let currentFilter = 'all';
     let editingId = null;
     let items = [];
@@ -822,12 +275,10 @@
       const dark = saved ? saved === 'dark' : prefersDark;
       applyTheme(dark);
     }
-
     function applyTheme(dark) {
       document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
       document.getElementById('themeIcon').textContent = dark ? '\u2600' : '\u263E';
     }
-
     function toggleTheme() {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       const next = !isDark;
@@ -839,13 +290,11 @@
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
-
     function hideLoading() {
       document.getElementById('loadingOverlay').classList.add('hidden');
     }
 
     let isSignUp = false;
-
     function setAuthMode(signUp) {
       isSignUp = signUp;
       document.getElementById('authTitle').textContent = signUp ? '회원가입' : '로그인';
@@ -856,27 +305,20 @@
       document.getElementById('pwStrengthText').style.display = signUp ? 'block' : 'none';
       clearAuthMessages();
     }
-
     function clearAuthMessages() {
       const err = document.getElementById('authError');
       const suc = document.getElementById('authSuccess');
-      err.style.display = 'none';
-      err.textContent = '';
-      suc.style.display = 'none';
-      suc.textContent = '';
+      err.style.display = 'none'; err.textContent = '';
+      suc.style.display = 'none'; suc.textContent = '';
     }
-
     function showAuthError(msg) {
       const el = document.getElementById('authError');
-      el.textContent = msg;
-      el.style.display = 'block';
+      el.textContent = msg; el.style.display = 'block';
       document.getElementById('authSuccess').style.display = 'none';
     }
-
     function showAuthSuccess(msg) {
       const el = document.getElementById('authSuccess');
-      el.textContent = msg;
-      el.style.display = 'block';
+      el.textContent = msg; el.style.display = 'block';
       document.getElementById('authError').style.display = 'none';
     }
 
@@ -888,7 +330,6 @@
       if (/[^a-zA-Z0-9]/.test(pw)) score++;
       return score;
     }
-
     function updatePasswordStrength(pw) {
       if (!isSignUp) return;
       const score = checkPasswordStrength(pw);
@@ -902,19 +343,15 @@
         { width: '100%', color: '#34c759', label: '매우 강함' },
       ];
       const level = levels[score];
-      bar.style.width = level.width;
-      bar.style.background = level.color;
-      text.textContent = level.label;
-      text.style.color = level.color;
+      bar.style.width = level.width; bar.style.background = level.color;
+      text.textContent = level.label; text.style.color = level.color;
     }
-
     function validatePassword(pw) {
       if (pw.length < 8) return '비밀번호는 최소 8자 이상이어야 합니다.';
       if (!/[a-zA-Z]/.test(pw)) return '비밀번호에 영문자를 포함해야 합니다.';
       if (!/[0-9]/.test(pw)) return '비밀번호에 숫자를 포함해야 합니다.';
       return null;
     }
-
     function translateAuthError(error) {
       const msg = error.message || '';
       if (msg.includes('Invalid login credentials')) return '이메일 또는 비밀번호가 올바르지 않습니다.';
@@ -929,74 +366,35 @@
     async function handleAuthSubmit(e) {
       e.preventDefault();
       clearAuthMessages();
-
       const email = document.getElementById('authEmail').value.trim();
       const password = document.getElementById('authPassword').value;
       const btn = document.getElementById('authSubmitBtn');
-
-      if (!email) {
-        showAuthError('이메일을 입력해 주세요.');
-        return;
-      }
-
-      if (isSignUp) {
-        const pwError = validatePassword(password);
-        if (pwError) {
-          showAuthError(pwError);
-          return;
-        }
-      }
-
-      btn.disabled = true;
-      btn.textContent = '처리 중...';
-
+      if (!email) { showAuthError('이메일을 입력해 주세요.'); return; }
+      if (isSignUp) { const pwError = validatePassword(password); if (pwError) { showAuthError(pwError); return; } }
+      btn.disabled = true; btn.textContent = '처리 중...';
       try {
         if (isSignUp) {
           const { data, error } = await sb.auth.signUp({ email, password });
           if (error) throw error;
-          if (!data.session) {
-            showAuthSuccess('회원가입 완료! 이메일을 확인하여 계정을 인증해 주세요.');
-          }
+          if (!data.session) showAuthSuccess('회원가입 완료! 이메일을 확인하여 계정을 인증해 주세요.');
         } else {
           const { error } = await sb.auth.signInWithPassword({ email, password });
           if (error) throw error;
         }
-      } catch (error) {
-        showAuthError(translateAuthError(error));
-      } finally {
-        btn.disabled = false;
-        btn.textContent = isSignUp ? '회원가입' : '로그인';
-      }
+      } catch (error) { showAuthError(translateAuthError(error)); }
+      finally { btn.disabled = false; btn.textContent = isSignUp ? '회원가입' : '로그인'; }
     }
-
     async function handleGoogleLogin() {
-      const { error } = await sb.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin + window.location.pathname
-        }
-      });
+      const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + window.location.pathname } });
       if (error) showAuthError(translateAuthError(error));
     }
+    async function handleLogout() { await sb.auth.signOut(); items = []; currentUser = null; }
 
-    async function handleLogout() {
-      await sb.auth.signOut();
-      items = [];
-      currentUser = null;
-    }
-
+    /* Optimistic CRUD */
     async function loadItems() {
       if (!currentUser) return;
-      const { data, error } = await sb
-        .from('shopping_items')
-        .select('*')
-        .eq('user_id', currentUser.id)
-        .order('position')
-        .order('created_at');
-      if (error) {
-        console.error('Load error:', error);
-        return;
-      }
+      const { data, error } = await sb.from('shopping_items').select('*').eq('user_id', currentUser.id).order('position').order('created_at');
+      if (error) { console.error('Load error:', error); return; }
       items = data || [];
       render();
     }
@@ -1004,98 +402,58 @@
     async function addItem(name) {
       name = name.trim();
       if (!name || name.length > MAX_ITEM_LENGTH || !currentUser) return;
-
-      const nextPosition = items.length > 0
-        ? Math.max(...items.map(i => i.position)) + 1
-        : 0;
-
-      const { data, error } = await sb
-        .from('shopping_items')
-        .insert({ user_id: currentUser.id, name, position: nextPosition })
-        .select()
-        .single();
-      if (error) {
-        console.error('Insert error:', error);
-        return;
-      }
-      items.push(data);
+      const nextPosition = items.length > 0 ? Math.max(...items.map(i => i.position)) + 1 : 0;
+      const tempId = Date.now();
+      items.push({ id: tempId, user_id: currentUser.id, name, checked: false, position: nextPosition, created_at: new Date().toISOString() });
+      render();
+      const { data, error } = await sb.from('shopping_items').insert({ user_id: currentUser.id, name, position: nextPosition }).select().single();
+      if (error) { console.error('Insert error:', error); items = items.filter(i => i.id !== tempId); render(); return; }
+      const idx = items.findIndex(i => i.id === tempId);
+      if (idx !== -1) items[idx] = data;
       render();
     }
 
     async function toggleItem(id) {
       const item = items.find(i => i.id === id);
       if (!item) return;
-      const newChecked = !item.checked;
-
-      const { error } = await sb
-        .from('shopping_items')
-        .update({ checked: newChecked })
-        .eq('id', id);
-      if (error) {
-        console.error('Toggle error:', error);
-        return;
-      }
-      item.checked = newChecked;
+      const oldChecked = item.checked;
+      item.checked = !oldChecked;
       render();
+      const { error } = await sb.from('shopping_items').update({ checked: item.checked }).eq('id', id);
+      if (error) { console.error('Toggle error:', error); item.checked = oldChecked; render(); }
     }
 
     async function deleteItem(id) {
       const li = document.querySelector(`li[data-id="${id}"]`);
-      if (li) {
-        li.classList.add('removing');
-        await new Promise(r => li.addEventListener('animationend', r, { once: true }));
-      }
-
-      const { error } = await sb
-        .from('shopping_items')
-        .delete()
-        .eq('id', id);
-      if (error) {
-        console.error('Delete error:', error);
-        return;
-      }
+      if (li) { li.classList.add('removing'); await new Promise(r => setTimeout(r, 300)); }
+      const removed = items.find(i => i.id === id);
       items = items.filter(i => i.id !== id);
       if (editingId === id) editingId = null;
       render();
+      const { error } = await sb.from('shopping_items').delete().eq('id', id);
+      if (error) { console.error('Delete error:', error); if (removed) items.push(removed); render(); }
     }
 
     async function commitEdit(id, newName) {
       newName = newName.trim();
-      if (!newName || newName.length > MAX_ITEM_LENGTH) {
-        editingId = null;
-        render();
-        return;
-      }
-
-      const { error } = await sb
-        .from('shopping_items')
-        .update({ name: newName })
-        .eq('id', id);
-      if (error) {
-        console.error('Edit error:', error);
-      } else {
-        const item = items.find(i => i.id === id);
-        if (item) item.name = newName;
-      }
-      editingId = null;
+      const item = items.find(i => i.id === id);
+      if (!newName || newName.length > MAX_ITEM_LENGTH || !item) { editingId = null; render(); return; }
+      const oldName = item.name;
+      item.name = newName; editingId = null;
       render();
+      const { error } = await sb.from('shopping_items').update({ name: newName }).eq('id', id);
+      if (error) { console.error('Edit error:', error); item.name = oldName; render(); }
     }
 
     async function clearCompleted() {
       const checkedIds = items.filter(i => i.checked).map(i => i.id);
       if (checkedIds.length === 0) return;
-
-      const { error } = await sb
-        .from('shopping_items')
-        .delete()
-        .in('id', checkedIds);
-      if (error) {
-        console.error('Clear error:', error);
-        return;
-      }
+      const removed = items.filter(i => i.checked);
       items = items.filter(i => !i.checked);
       editingId = null;
       render();
+      const { error } = await sb.from('shopping_items').delete().in('id', checkedIds);
+      if (error) { console.error('Clear error:', error); items = items.concat(removed); render(); }
     }
 
     function render() {
@@ -1105,39 +463,29 @@
       const progressBar = document.getElementById('progressBar');
       const progressWrap = document.getElementById('progressWrap');
       const clearBtn = document.getElementById('clearBtn');
-
       const total = items.length;
       const doneCount = items.filter(i => i.checked).length;
       const activeCount = total - doneCount;
 
       statsEl.replaceChildren();
       if (total > 0) {
-        const info = document.createElement('span');
-        info.className = 'info';
+        const info = document.createElement('span'); info.className = 'info';
         info.textContent = `${doneCount}/${total} 완료`;
-        const badge = document.createElement('span');
-        badge.className = 'badge';
-        badge.textContent = activeCount;
-        badge.setAttribute('aria-label', `미완료 ${activeCount}개`);
+        const badge = document.createElement('span'); badge.className = 'badge';
+        badge.textContent = activeCount; badge.setAttribute('aria-label', `미완료 ${activeCount}개`);
         if (activeCount > 0) info.appendChild(badge);
         statsEl.appendChild(info);
         progressWrap.style.opacity = '1';
         progressBar.style.width = `${(doneCount / total) * 100}%`;
-      } else {
-        progressWrap.style.opacity = '0';
-        progressBar.style.width = '0%';
-      }
+      } else { progressWrap.style.opacity = '0'; progressBar.style.width = '0%'; }
 
       clearBtn.disabled = doneCount === 0;
-
       const filtered = items.filter(item => {
         if (currentFilter === 'active') return !item.checked;
         if (currentFilter === 'completed') return item.checked;
         return true;
       });
-
       emptyEl.hidden = total > 0;
-
       listEl.replaceChildren();
 
       filtered.forEach(item => {
@@ -1145,7 +493,6 @@
         li.dataset.id = item.id;
         if (item.checked) li.classList.add('checked');
         li.setAttribute('role', 'listitem');
-
         const checkbox = document.createElement('div');
         checkbox.className = 'checkbox';
         checkbox.setAttribute('role', 'checkbox');
@@ -1156,124 +503,77 @@
 
         if (editingId === item.id) {
           const editInput = document.createElement('input');
-          editInput.type = 'text';
-          editInput.className = 'edit-input';
-          editInput.value = item.name;
-          editInput.maxLength = MAX_ITEM_LENGTH;
+          editInput.type = 'text'; editInput.className = 'edit-input';
+          editInput.value = item.name; editInput.maxLength = MAX_ITEM_LENGTH;
           editInput.setAttribute('aria-label', '아이템 수정');
           editInput.dataset.action = 'edit-input';
-          li.appendChild(checkbox);
-          li.appendChild(editInput);
+          li.appendChild(checkbox); li.appendChild(editInput);
         } else {
           const textSpan = document.createElement('span');
-          textSpan.className = 'item-text';
-          textSpan.textContent = item.name;
-          li.appendChild(checkbox);
-          li.appendChild(textSpan);
-
-          const actions = document.createElement('div');
-          actions.className = 'actions';
-
+          textSpan.className = 'item-text'; textSpan.textContent = item.name;
+          li.appendChild(checkbox); li.appendChild(textSpan);
+          const actions = document.createElement('div'); actions.className = 'actions';
           const editBtn = document.createElement('button');
-          editBtn.className = 'act-btn';
-          editBtn.type = 'button';
-          editBtn.setAttribute('aria-label', '수정');
-          editBtn.textContent = '\u270E';
+          editBtn.className = 'act-btn'; editBtn.type = 'button';
+          editBtn.setAttribute('aria-label', '수정'); editBtn.textContent = '\u270E';
           editBtn.dataset.action = 'edit';
-
           const deleteBtn = document.createElement('button');
-          deleteBtn.className = 'act-btn delete';
-          deleteBtn.type = 'button';
-          deleteBtn.setAttribute('aria-label', '삭제');
-          deleteBtn.textContent = '\u2715';
+          deleteBtn.className = 'act-btn delete'; deleteBtn.type = 'button';
+          deleteBtn.setAttribute('aria-label', '삭제'); deleteBtn.textContent = '\u2715';
           deleteBtn.dataset.action = 'delete';
-
-          actions.appendChild(editBtn);
-          actions.appendChild(deleteBtn);
+          actions.appendChild(editBtn); actions.appendChild(deleteBtn);
           li.appendChild(actions);
         }
-
         listEl.appendChild(li);
       });
 
       if (editingId !== null) {
         const editInput = listEl.querySelector('.edit-input');
-        if (editInput) {
-          editInput.focus();
-          editInput.setSelectionRange(editInput.value.length, editInput.value.length);
-        }
+        if (editInput) { editInput.focus(); editInput.setSelectionRange(editInput.value.length, editInput.value.length); }
       }
     }
 
     document.getElementById('list').addEventListener('click', e => {
-      const li = e.target.closest('li');
-      if (!li) return;
+      const li = e.target.closest('li'); if (!li) return;
       const id = Number(li.dataset.id);
       const action = e.target.closest('[data-action]')?.dataset.action;
-
       if (action === 'toggle') toggleItem(id);
       else if (action === 'delete') deleteItem(id);
-      else if (action === 'edit') {
-        editingId = id;
-        render();
-      }
+      else if (action === 'edit') { editingId = id; render(); }
     });
-
     document.getElementById('list').addEventListener('keydown', e => {
-      const li = e.target.closest('li');
-      if (!li) return;
+      const li = e.target.closest('li'); if (!li) return;
       const id = Number(li.dataset.id);
-
-      if (e.target.dataset.action === 'toggle' && (e.key === 'Enter' || e.key === ' ')) {
-        e.preventDefault();
-        toggleItem(id);
-      }
-
+      if (e.target.dataset.action === 'toggle' && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleItem(id); }
       if (e.target.dataset.action === 'edit-input') {
-        if (e.key === 'Enter') {
-          commitEdit(id, e.target.value);
-        } else if (e.key === 'Escape') {
-          editingId = null;
-          render();
-        }
+        if (e.key === 'Enter') commitEdit(id, e.target.value);
+        else if (e.key === 'Escape') { editingId = null; render(); }
       }
     });
-
     document.getElementById('list').addEventListener('focusout', e => {
       if (e.target.dataset.action === 'edit-input' && editingId !== null) {
         const id = Number(e.target.closest('li').dataset.id);
         commitEdit(id, e.target.value);
       }
     });
-
     document.getElementById('addForm').addEventListener('submit', e => {
       e.preventDefault();
       const input = document.getElementById('itemInput');
-      addItem(input.value);
-      input.value = '';
-      input.focus();
+      addItem(input.value); input.value = ''; input.focus();
     });
-
     document.querySelector('.filters').addEventListener('click', e => {
-      const btn = e.target.closest('button[data-filter]');
-      if (!btn) return;
+      const btn = e.target.closest('button[data-filter]'); if (!btn) return;
       currentFilter = btn.dataset.filter;
-      document.querySelectorAll('.filters button').forEach(b =>
-        b.setAttribute('aria-pressed', String(b === btn))
-      );
+      document.querySelectorAll('.filters button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
       render();
     });
-
     document.getElementById('clearBtn').addEventListener('click', clearCompleted);
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
     document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
     document.getElementById('authSwitchBtn').addEventListener('click', () => setAuthMode(!isSignUp));
     document.getElementById('googleBtn').addEventListener('click', handleGoogleLogin);
     document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-
-    document.getElementById('authPassword').addEventListener('input', e => {
-      updatePasswordStrength(e.target.value);
-    });
+    document.getElementById('authPassword').addEventListener('input', e => { updatePasswordStrength(e.target.value); });
 
     sb.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
@@ -1281,11 +581,7 @@
         document.getElementById('userEmail').textContent = currentUser.email || '';
         showScreen('appScreen');
         await loadItems();
-      } else {
-        currentUser = null;
-        items = [];
-        showScreen('authScreen');
-      }
+      } else { currentUser = null; items = []; showScreen('authScreen'); }
       hideLoading();
     });
 
