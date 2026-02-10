@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>쇼핑 리스트</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --bg: #f5f5f7;
@@ -60,7 +61,6 @@
       max-width: 500px;
     }
 
-    /* Header */
     .header {
       display: flex;
       align-items: center;
@@ -72,6 +72,12 @@
       font-size: 34px;
       font-weight: 700;
       letter-spacing: -0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .theme-toggle {
@@ -96,14 +102,278 @@
       transform: scale(1.1);
     }
 
-    /* Input area */
-    form {
+    .user-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: var(--surface);
+      backdrop-filter: var(--backdrop);
+      -webkit-backdrop-filter: var(--backdrop);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .user-bar .user-email {
+      color: var(--text-secondary);
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 260px;
+    }
+
+    .user-bar .logout-btn {
+      border: none;
+      background: transparent;
+      color: var(--danger);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    .user-bar .logout-btn:hover {
+      background: rgba(255,59,48,0.1);
+    }
+
+    .auth-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .auth-card {
+      background: var(--surface);
+      backdrop-filter: var(--backdrop);
+      -webkit-backdrop-filter: var(--backdrop);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .auth-card h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .auth-field {
+      margin-bottom: 16px;
+    }
+
+    .auth-field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .auth-field input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-solid);
+      color: var(--text);
+      font-size: 16px;
+      font-family: inherit;
+      outline: none;
+      transition: all var(--transition);
+    }
+
+    .auth-field input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+    }
+
+    .auth-field input.invalid {
+      border-color: var(--danger);
+    }
+
+    .pw-strength {
+      height: 4px;
+      border-radius: 2px;
+      margin-top: 8px;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .pw-strength-bar {
+      height: 100%;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.3s, background 0.3s;
+    }
+
+    .pw-strength-text {
+      font-size: 12px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all var(--transition);
+      margin-top: 8px;
+    }
+
+    .auth-btn:hover {
+      background: var(--accent-hover);
+      transform: scale(1.02);
+    }
+
+    .auth-btn:active {
+      transform: scale(0.98);
+    }
+
+    .auth-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .google-btn {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-solid);
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .google-btn:hover {
+      border-color: var(--text-secondary);
+      transform: scale(1.02);
+    }
+
+    .google-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .auth-toggle {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .auth-toggle button {
+      border: none;
+      background: transparent;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .auth-toggle button:hover {
+      text-decoration: underline;
+    }
+
+    .auth-error {
+      background: rgba(255,59,48,0.1);
+      color: var(--danger);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .auth-success {
+      background: rgba(52,199,89,0.1);
+      color: var(--success);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: opacity 0.3s;
+    }
+
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #addForm {
       display: flex;
       gap: 10px;
       margin-bottom: 20px;
     }
 
-    form input[type="text"] {
+    #addForm input[type="text"] {
       flex: 1;
       padding: 14px 18px;
       border: none;
@@ -119,15 +389,15 @@
       transition: all var(--transition);
     }
 
-    form input[type="text"]::placeholder {
+    #addForm input[type="text"]::placeholder {
       color: var(--text-secondary);
     }
 
-    form input[type="text"]:focus {
+    #addForm input[type="text"]:focus {
       box-shadow: var(--shadow-lg), 0 0 0 3px rgba(0,113,227,0.3);
     }
 
-    form button[type="submit"] {
+    #addForm button[type="submit"] {
       padding: 14px 22px;
       border: none;
       border-radius: var(--radius);
@@ -141,16 +411,15 @@
       white-space: nowrap;
     }
 
-    form button[type="submit"]:hover {
+    #addForm button[type="submit"]:hover {
       background: var(--accent-hover);
       transform: scale(1.03);
     }
 
-    form button[type="submit"]:active {
+    #addForm button[type="submit"]:active {
       transform: scale(0.97);
     }
 
-    /* Stats bar */
     .stats {
       display: flex;
       align-items: center;
@@ -181,7 +450,6 @@
       vertical-align: middle;
     }
 
-    /* Filters */
     .filters {
       display: flex;
       gap: 4px;
@@ -218,7 +486,6 @@
       color: var(--text);
     }
 
-    /* List */
     ul {
       list-style: none;
     }
@@ -253,7 +520,6 @@
       to { opacity: 0; transform: translateX(60px) scale(0.9); }
     }
 
-    /* Checkbox */
     li .checkbox {
       width: 24px;
       height: 24px;
@@ -295,7 +561,6 @@
       transform: rotate(45deg) translateY(-1px);
     }
 
-    /* Item text */
     li .item-text {
       flex: 1;
       font-size: 17px;
@@ -311,7 +576,6 @@
       color: var(--text-secondary);
     }
 
-    /* Edit input */
     li .edit-input {
       flex: 1;
       font-size: 17px;
@@ -324,7 +588,6 @@
       outline: none;
     }
 
-    /* Action buttons */
     li .actions {
       display: flex;
       gap: 4px;
@@ -363,7 +626,6 @@
       outline-offset: 2px;
     }
 
-    /* Bottom bar */
     .bottom-bar {
       display: flex;
       justify-content: center;
@@ -392,7 +654,6 @@
       pointer-events: none;
     }
 
-    /* Empty state */
     .empty-state {
       text-align: center;
       padding: 60px 20px;
@@ -416,7 +677,6 @@
       font-weight: 400;
     }
 
-    /* Progress bar */
     .progress-wrap {
       height: 4px;
       background: var(--border);
@@ -433,12 +693,10 @@
       transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--text-secondary); border-radius: 3px; }
 
-    /* Mobile touch: always show actions */
     @media (hover: none) {
       li .actions { opacity: 1; }
     }
@@ -447,63 +705,117 @@
       .header h1 { font-size: 28px; }
       body { padding: 24px 12px 60px; }
     }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
   </style>
 </head>
 <body>
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+
   <main>
     <div class="header">
       <h1>쇼핑 리스트</h1>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">
-        <span id="themeIcon">&#9790;</span>
-      </button>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">
+          <span id="themeIcon">&#9790;</span>
+        </button>
+      </div>
     </div>
 
-    <form id="addForm" autocomplete="off">
-      <input type="text" id="itemInput" placeholder="새 아이템 추가..." aria-label="쇼핑 아이템 입력" />
-      <button type="submit">추가</button>
-    </form>
+    <div class="screen" id="authScreen">
+      <div class="auth-container">
+        <div class="auth-card">
+          <h2 id="authTitle">로그인</h2>
 
-    <div class="stats" id="stats" aria-live="polite"></div>
-    <div class="progress-wrap" id="progressWrap">
-      <div class="progress-bar" id="progressBar"></div>
+          <div class="auth-error" id="authError"></div>
+          <div class="auth-success" id="authSuccess"></div>
+
+          <form id="authForm" autocomplete="off" novalidate>
+            <div class="auth-field">
+              <label for="authEmail">이메일</label>
+              <input type="email" id="authEmail" placeholder="example@email.com" required />
+            </div>
+            <div class="auth-field">
+              <label for="authPassword">비밀번호</label>
+              <input type="password" id="authPassword" placeholder="8자 이상, 영문+숫자" required minlength="8" />
+              <div class="pw-strength" id="pwStrengthWrap" style="display:none;">
+                <div class="pw-strength-bar" id="pwStrengthBar"></div>
+              </div>
+              <div class="pw-strength-text" id="pwStrengthText" style="display:none;"></div>
+            </div>
+            <button type="submit" class="auth-btn" id="authSubmitBtn">로그인</button>
+          </form>
+
+          <div class="auth-divider">또는</div>
+
+          <button type="button" class="google-btn" id="googleBtn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            Google로 계속하기
+          </button>
+
+          <div class="auth-toggle" id="authToggle">
+            계정이 없으신가요? <button type="button" id="authSwitchBtn">회원가입</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="filters" role="group" aria-label="필터">
-      <button type="button" data-filter="all" aria-pressed="true">전체</button>
-      <button type="button" data-filter="active" aria-pressed="false">미완료</button>
-      <button type="button" data-filter="completed" aria-pressed="false">완료</button>
-    </div>
+    <div class="screen" id="appScreen">
+      <div class="user-bar" id="userBar">
+        <span class="user-email" id="userEmail"></span>
+        <button type="button" class="logout-btn" id="logoutBtn">로그아웃</button>
+      </div>
 
-    <ul id="list" role="list"></ul>
-    <div class="empty-state" id="emptyState" hidden>
-      <span class="icon">&#128722;</span>
-      <p>리스트가 비어 있습니다</p>
-      <p class="sub">위 입력란에 아이템을 추가해 보세요</p>
-    </div>
+      <form id="addForm" autocomplete="off">
+        <input type="text" id="itemInput" placeholder="새 아이템 추가..." aria-label="쇼핑 아이템 입력" maxlength="200" />
+        <button type="submit">추가</button>
+      </form>
 
-    <div class="bottom-bar">
-      <button type="button" class="clear-btn" id="clearBtn" disabled>완료 항목 모두 삭제</button>
+      <div class="stats" id="stats" aria-live="polite"></div>
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <div class="filters" role="group" aria-label="필터">
+        <button type="button" data-filter="all" aria-pressed="true">전체</button>
+        <button type="button" data-filter="active" aria-pressed="false">미완료</button>
+        <button type="button" data-filter="completed" aria-pressed="false">완료</button>
+      </div>
+
+      <ul id="list" role="list"></ul>
+      <div class="empty-state" id="emptyState" hidden>
+        <span class="icon">&#128722;</span>
+        <p>리스트가 비어 있습니다</p>
+        <p class="sub">위 입력란에 아이템을 추가해 보세요</p>
+      </div>
+
+      <div class="bottom-bar">
+        <button type="button" class="clear-btn" id="clearBtn" disabled>완료 항목 모두 삭제</button>
+      </div>
     </div>
   </main>
 
   <script>
-    const STORAGE_KEY = 'shopping-list-v2';
+    const SUPABASE_URL = 'https://lzyvmmceimtyexgirkua.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6eXZtbWNlaW10eWV4Z2lya3VhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA3MTg3MjcsImV4cCI6MjA4NjI5NDcyN30.UZKb_5WqlJuoZD2WTlbJHrwPEcy-3XF3oi33b4mGUxo';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const THEME_KEY = 'shopping-list-theme';
+    const MAX_ITEM_LENGTH = 200;
 
     let currentFilter = 'all';
-    let editingIdx = -1;
+    let editingId = null;
+    let items = [];
+    let currentUser = null;
 
-    /* ── Storage ── */
-    function load() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-      catch { return []; }
-    }
-
-    function save(items) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-    }
-
-    /* ── Theme ── */
     function initTheme() {
       const saved = localStorage.getItem(THEME_KEY);
       const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
@@ -523,9 +835,270 @@
       applyTheme(next);
     }
 
-    /* ── Render ── */
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingOverlay').classList.add('hidden');
+    }
+
+    let isSignUp = false;
+
+    function setAuthMode(signUp) {
+      isSignUp = signUp;
+      document.getElementById('authTitle').textContent = signUp ? '회원가입' : '로그인';
+      document.getElementById('authSubmitBtn').textContent = signUp ? '회원가입' : '로그인';
+      document.getElementById('authSwitchBtn').textContent = signUp ? '로그인' : '회원가입';
+      document.getElementById('authToggle').firstChild.textContent = signUp ? '이미 계정이 있으신가요? ' : '계정이 없으신가요? ';
+      document.getElementById('pwStrengthWrap').style.display = signUp ? 'block' : 'none';
+      document.getElementById('pwStrengthText').style.display = signUp ? 'block' : 'none';
+      clearAuthMessages();
+    }
+
+    function clearAuthMessages() {
+      const err = document.getElementById('authError');
+      const suc = document.getElementById('authSuccess');
+      err.style.display = 'none';
+      err.textContent = '';
+      suc.style.display = 'none';
+      suc.textContent = '';
+    }
+
+    function showAuthError(msg) {
+      const el = document.getElementById('authError');
+      el.textContent = msg;
+      el.style.display = 'block';
+      document.getElementById('authSuccess').style.display = 'none';
+    }
+
+    function showAuthSuccess(msg) {
+      const el = document.getElementById('authSuccess');
+      el.textContent = msg;
+      el.style.display = 'block';
+      document.getElementById('authError').style.display = 'none';
+    }
+
+    function checkPasswordStrength(pw) {
+      let score = 0;
+      if (pw.length >= 8) score++;
+      if (pw.length >= 12) score++;
+      if (/[a-zA-Z]/.test(pw) && /[0-9]/.test(pw)) score++;
+      if (/[^a-zA-Z0-9]/.test(pw)) score++;
+      return score;
+    }
+
+    function updatePasswordStrength(pw) {
+      if (!isSignUp) return;
+      const score = checkPasswordStrength(pw);
+      const bar = document.getElementById('pwStrengthBar');
+      const text = document.getElementById('pwStrengthText');
+      const levels = [
+        { width: '0%', color: 'transparent', label: '' },
+        { width: '25%', color: '#ff3b30', label: '약함' },
+        { width: '50%', color: '#ff9500', label: '보통' },
+        { width: '75%', color: '#0071e3', label: '강함' },
+        { width: '100%', color: '#34c759', label: '매우 강함' },
+      ];
+      const level = levels[score];
+      bar.style.width = level.width;
+      bar.style.background = level.color;
+      text.textContent = level.label;
+      text.style.color = level.color;
+    }
+
+    function validatePassword(pw) {
+      if (pw.length < 8) return '비밀번호는 최소 8자 이상이어야 합니다.';
+      if (!/[a-zA-Z]/.test(pw)) return '비밀번호에 영문자를 포함해야 합니다.';
+      if (!/[0-9]/.test(pw)) return '비밀번호에 숫자를 포함해야 합니다.';
+      return null;
+    }
+
+    function translateAuthError(error) {
+      const msg = error.message || '';
+      if (msg.includes('Invalid login credentials')) return '이메일 또는 비밀번호가 올바르지 않습니다.';
+      if (msg.includes('Email not confirmed')) return '이메일 인증이 필요합니다. 메일함을 확인해 주세요.';
+      if (msg.includes('User already registered')) return '이미 등록된 이메일입니다.';
+      if (msg.includes('Password should be at least')) return '비밀번호는 최소 6자 이상이어야 합니다.';
+      if (msg.includes('Email rate limit exceeded')) return '너무 많은 요청이 발생했습니다. 잠시 후 다시 시도해 주세요.';
+      if (msg.includes('For security purposes')) return '보안을 위해 잠시 후 다시 시도해 주세요.';
+      return msg || '오류가 발생했습니다. 다시 시도해 주세요.';
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      clearAuthMessages();
+
+      const email = document.getElementById('authEmail').value.trim();
+      const password = document.getElementById('authPassword').value;
+      const btn = document.getElementById('authSubmitBtn');
+
+      if (!email) {
+        showAuthError('이메일을 입력해 주세요.');
+        return;
+      }
+
+      if (isSignUp) {
+        const pwError = validatePassword(password);
+        if (pwError) {
+          showAuthError(pwError);
+          return;
+        }
+      }
+
+      btn.disabled = true;
+      btn.textContent = '처리 중...';
+
+      try {
+        if (isSignUp) {
+          const { data, error } = await sb.auth.signUp({ email, password });
+          if (error) throw error;
+          if (!data.session) {
+            showAuthSuccess('회원가입 완료! 이메일을 확인하여 계정을 인증해 주세요.');
+          }
+        } else {
+          const { error } = await sb.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+        }
+      } catch (error) {
+        showAuthError(translateAuthError(error));
+      } finally {
+        btn.disabled = false;
+        btn.textContent = isSignUp ? '회원가입' : '로그인';
+      }
+    }
+
+    async function handleGoogleLogin() {
+      const { error } = await sb.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin + window.location.pathname
+        }
+      });
+      if (error) showAuthError(translateAuthError(error));
+    }
+
+    async function handleLogout() {
+      await sb.auth.signOut();
+      items = [];
+      currentUser = null;
+    }
+
+    async function loadItems() {
+      if (!currentUser) return;
+      const { data, error } = await sb
+        .from('shopping_items')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .order('position')
+        .order('created_at');
+      if (error) {
+        console.error('Load error:', error);
+        return;
+      }
+      items = data || [];
+      render();
+    }
+
+    async function addItem(name) {
+      name = name.trim();
+      if (!name || name.length > MAX_ITEM_LENGTH || !currentUser) return;
+
+      const nextPosition = items.length > 0
+        ? Math.max(...items.map(i => i.position)) + 1
+        : 0;
+
+      const { data, error } = await sb
+        .from('shopping_items')
+        .insert({ user_id: currentUser.id, name, position: nextPosition })
+        .select()
+        .single();
+      if (error) {
+        console.error('Insert error:', error);
+        return;
+      }
+      items.push(data);
+      render();
+    }
+
+    async function toggleItem(id) {
+      const item = items.find(i => i.id === id);
+      if (!item) return;
+      const newChecked = !item.checked;
+
+      const { error } = await sb
+        .from('shopping_items')
+        .update({ checked: newChecked })
+        .eq('id', id);
+      if (error) {
+        console.error('Toggle error:', error);
+        return;
+      }
+      item.checked = newChecked;
+      render();
+    }
+
+    async function deleteItem(id) {
+      const li = document.querySelector(`li[data-id="${id}"]`);
+      if (li) {
+        li.classList.add('removing');
+        await new Promise(r => li.addEventListener('animationend', r, { once: true }));
+      }
+
+      const { error } = await sb
+        .from('shopping_items')
+        .delete()
+        .eq('id', id);
+      if (error) {
+        console.error('Delete error:', error);
+        return;
+      }
+      items = items.filter(i => i.id !== id);
+      if (editingId === id) editingId = null;
+      render();
+    }
+
+    async function commitEdit(id, newName) {
+      newName = newName.trim();
+      if (!newName || newName.length > MAX_ITEM_LENGTH) {
+        editingId = null;
+        render();
+        return;
+      }
+
+      const { error } = await sb
+        .from('shopping_items')
+        .update({ name: newName })
+        .eq('id', id);
+      if (error) {
+        console.error('Edit error:', error);
+      } else {
+        const item = items.find(i => i.id === id);
+        if (item) item.name = newName;
+      }
+      editingId = null;
+      render();
+    }
+
+    async function clearCompleted() {
+      const checkedIds = items.filter(i => i.checked).map(i => i.id);
+      if (checkedIds.length === 0) return;
+
+      const { error } = await sb
+        .from('shopping_items')
+        .delete()
+        .in('id', checkedIds);
+      if (error) {
+        console.error('Clear error:', error);
+        return;
+      }
+      items = items.filter(i => !i.checked);
+      editingId = null;
+      render();
+    }
+
     function render() {
-      const items = load();
       const listEl = document.getElementById('list');
       const emptyEl = document.getElementById('emptyState');
       const statsEl = document.getElementById('stats');
@@ -537,9 +1110,8 @@
       const doneCount = items.filter(i => i.checked).length;
       const activeCount = total - doneCount;
 
-      // Stats
+      statsEl.replaceChildren();
       if (total > 0) {
-        statsEl.innerHTML = '';
         const info = document.createElement('span');
         info.className = 'info';
         info.textContent = `${doneCount}/${total} 완료`;
@@ -552,35 +1124,28 @@
         progressWrap.style.opacity = '1';
         progressBar.style.width = `${(doneCount / total) * 100}%`;
       } else {
-        statsEl.textContent = '';
         progressWrap.style.opacity = '0';
         progressBar.style.width = '0%';
       }
 
-      // Clear button
       clearBtn.disabled = doneCount === 0;
 
-      // Filter items
-      const filtered = items.map((item, idx) => ({ ...item, idx }))
-        .filter(item => {
-          if (currentFilter === 'active') return !item.checked;
-          if (currentFilter === 'completed') return item.checked;
-          return true;
-        });
+      const filtered = items.filter(item => {
+        if (currentFilter === 'active') return !item.checked;
+        if (currentFilter === 'completed') return item.checked;
+        return true;
+      });
 
-      // Empty state
       emptyEl.hidden = total > 0;
 
-      // Build list via DOM API (no innerHTML)
       listEl.replaceChildren();
 
       filtered.forEach(item => {
         const li = document.createElement('li');
-        li.dataset.idx = item.idx;
+        li.dataset.id = item.id;
         if (item.checked) li.classList.add('checked');
         li.setAttribute('role', 'listitem');
 
-        // Checkbox
         const checkbox = document.createElement('div');
         checkbox.className = 'checkbox';
         checkbox.setAttribute('role', 'checkbox');
@@ -589,25 +1154,23 @@
         checkbox.setAttribute('aria-label', item.checked ? '완료 해제' : '완료 처리');
         checkbox.dataset.action = 'toggle';
 
-        if (editingIdx === item.idx) {
-          // Edit mode
+        if (editingId === item.id) {
           const editInput = document.createElement('input');
           editInput.type = 'text';
           editInput.className = 'edit-input';
           editInput.value = item.name;
+          editInput.maxLength = MAX_ITEM_LENGTH;
           editInput.setAttribute('aria-label', '아이템 수정');
           editInput.dataset.action = 'edit-input';
           li.appendChild(checkbox);
           li.appendChild(editInput);
         } else {
-          // Display mode
           const textSpan = document.createElement('span');
           textSpan.className = 'item-text';
           textSpan.textContent = item.name;
           li.appendChild(checkbox);
           li.appendChild(textSpan);
 
-          // Actions
           const actions = document.createElement('div');
           actions.className = 'actions';
 
@@ -633,8 +1196,7 @@
         listEl.appendChild(li);
       });
 
-      // Focus edit input if in edit mode
-      if (editingIdx >= 0) {
+      if (editingId !== null) {
         const editInput = listEl.querySelector('.edit-input');
         if (editInput) {
           editInput.focus();
@@ -643,109 +1205,55 @@
       }
     }
 
-    /* ── Actions ── */
-    function addItem(name) {
-      if (!name) return;
-      const items = load();
-      items.push({ name, checked: false });
-      save(items);
-      render();
-    }
-
-    function toggleItem(idx) {
-      const items = load();
-      if (items[idx]) items[idx].checked = !items[idx].checked;
-      save(items);
-      render();
-    }
-
-    function deleteItem(idx) {
-      const li = document.querySelector(`li[data-idx="${idx}"]`);
-      if (li) {
-        li.classList.add('removing');
-        li.addEventListener('animationend', () => {
-          const items = load();
-          items.splice(idx, 1);
-          save(items);
-          if (editingIdx === idx) editingIdx = -1;
-          render();
-        }, { once: true });
-      }
-    }
-
-    function startEdit(idx) {
-      editingIdx = idx;
-      render();
-    }
-
-    function commitEdit(idx, newName) {
-      const items = load();
-      if (items[idx] && newName.trim()) {
-        items[idx].name = newName.trim();
-        save(items);
-      }
-      editingIdx = -1;
-      render();
-    }
-
-    function clearCompleted() {
-      const items = load().filter(i => !i.checked);
-      save(items);
-      editingIdx = -1;
-      render();
-    }
-
-    /* ── Event Delegation ── */
     document.getElementById('list').addEventListener('click', e => {
       const li = e.target.closest('li');
       if (!li) return;
-      const idx = Number(li.dataset.idx);
+      const id = Number(li.dataset.id);
       const action = e.target.closest('[data-action]')?.dataset.action;
 
-      if (action === 'toggle') toggleItem(idx);
-      else if (action === 'delete') deleteItem(idx);
-      else if (action === 'edit') startEdit(idx);
+      if (action === 'toggle') toggleItem(id);
+      else if (action === 'delete') deleteItem(id);
+      else if (action === 'edit') {
+        editingId = id;
+        render();
+      }
     });
 
     document.getElementById('list').addEventListener('keydown', e => {
       const li = e.target.closest('li');
       if (!li) return;
-      const idx = Number(li.dataset.idx);
+      const id = Number(li.dataset.id);
 
-      // Checkbox enter/space
       if (e.target.dataset.action === 'toggle' && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
-        toggleItem(idx);
+        toggleItem(id);
       }
 
-      // Edit input enter/escape
       if (e.target.dataset.action === 'edit-input') {
         if (e.key === 'Enter') {
-          commitEdit(idx, e.target.value);
+          commitEdit(id, e.target.value);
         } else if (e.key === 'Escape') {
-          editingIdx = -1;
+          editingId = null;
           render();
         }
       }
     });
 
     document.getElementById('list').addEventListener('focusout', e => {
-      if (e.target.dataset.action === 'edit-input' && editingIdx >= 0) {
-        const idx = Number(e.target.closest('li').dataset.idx);
-        commitEdit(idx, e.target.value);
+      if (e.target.dataset.action === 'edit-input' && editingId !== null) {
+        const id = Number(e.target.closest('li').dataset.id);
+        commitEdit(id, e.target.value);
       }
     });
 
-    // Form submit
     document.getElementById('addForm').addEventListener('submit', e => {
       e.preventDefault();
       const input = document.getElementById('itemInput');
-      addItem(input.value.trim());
+      addItem(input.value);
       input.value = '';
       input.focus();
     });
 
-    // Filters
     document.querySelector('.filters').addEventListener('click', e => {
       const btn = e.target.closest('button[data-filter]');
       if (!btn) return;
@@ -756,15 +1264,32 @@
       render();
     });
 
-    // Clear completed
     document.getElementById('clearBtn').addEventListener('click', clearCompleted);
-
-    // Theme toggle
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+    document.getElementById('authSwitchBtn').addEventListener('click', () => setAuthMode(!isSignUp));
+    document.getElementById('googleBtn').addEventListener('click', handleGoogleLogin);
+    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
 
-    /* ── Init ── */
+    document.getElementById('authPassword').addEventListener('input', e => {
+      updatePasswordStrength(e.target.value);
+    });
+
+    sb.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        currentUser = session.user;
+        document.getElementById('userEmail').textContent = currentUser.email || '';
+        showScreen('appScreen');
+        await loadItems();
+      } else {
+        currentUser = null;
+        items = [];
+        showScreen('authScreen');
+      }
+      hideLoading();
+    });
+
     initTheme();
-    render();
   </script>
 </body>
 </html>
